@@ -10,6 +10,7 @@
 
 #import "UIFloatLabelTextView.h"
 
+IB_DESIGNABLE
 @interface UIFloatLabelTextView ()
 
 @property (nonatomic, strong) UIColor *storedTextColor;
@@ -17,6 +18,10 @@
 @property (nonatomic, strong) UIButton *clearTextFieldButton;
 @property (nonatomic, assign) CGFloat xOrigin;
 @property (nonatomic, assign) CGFloat horizontalPadding;
+
+@property (nonatomic) IBInspectable UIColor *borderColor;
+@property (nonatomic) IBInspectable CGFloat cornerRadius;
+@property (nonatomic) IBInspectable CGFloat borderWidth;
 
 @end
 
@@ -91,7 +96,7 @@
 - (void)setupTextView
 {
     // TextView Padding
-    _horizontalPadding = 5.0f;
+    _horizontalPadding = 10.0f;
     self.contentInset = UIEdgeInsetsMake(UI_FLOAT_LABEL_VERTICAL_INSET_OFFSET,
                                          0.0f,
                                          0.0f,
@@ -105,6 +110,17 @@
     
     // Placeholder Color
     _placeholderTextColor = [UIColor lightGrayColor];
+    
+    // Setup default values
+    _borderColor = [UIColor colorWithRed:213.0f/255.0f green:221.0f/255.0f blue:224.0f/255.0f alpha:1];
+    _cornerRadius = 2.0f;
+    _borderWidth = 1;
+    
+    // Enable textfield border
+    self.layer.cornerRadius = _cornerRadius;
+    self.layer.borderColor = _borderColor.CGColor;
+    self.layer.borderWidth = _borderWidth;
+    self.layer.masksToBounds = NO;
 }
 
 - (void)setupFloatLabel
@@ -119,7 +135,7 @@
     [self addSubview:_floatLabel];
     // colors
     _floatLabelPassiveColor = [UIColor lightGrayColor];
-    _floatLabelActiveColor = [UIColor blueColor];
+    _floatLabelActiveColor = [UIColor colorWithRed:0 green:0.48f blue:1 alpha:1];
     
     // animationDuration
     _floatLabelAnimationDuration = @0.25;
