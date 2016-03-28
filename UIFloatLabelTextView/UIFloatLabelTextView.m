@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Arthur Ariel Sabintsev. All rights reserved.
 //
 
-#define UI_FLOAT_LABEL_VERTICAL_INSET_OFFSET    8.0f
+#define UI_FLOAT_LABEL_VERTICAL_INSET_OFFSET    16.0f
 
 #import "UIFloatLabelTextView.h"
 
