@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Arthur Ariel Sabintsev. All rights reserved.
 //
 
-#define UI_FLOAT_LABEL_VERTICAL_INSET_OFFSET    16.0f
+#define UI_FLOAT_LABEL_VERTICAL_INSET_OFFSET    10.0f
 
 #import "UIFloatLabelTextView.h"
 
@@ -101,6 +101,7 @@ IB_DESIGNABLE
                                          0.0f,
                                          0.0f,
                                          0.0f);
+    self.textContainerInset = UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f);
     
     // Text Alignment
     [self setTextAlignment:NSTextAlignmentLeft];
@@ -109,12 +110,12 @@ IB_DESIGNABLE
     _storedTextColor = [UIColor blackColor];
     
     // Placeholder Color
-    _placeholderTextColor = [UIColor lightGrayColor];
+    _placeholderTextColor = [UIColor colorWithRed:199.0f/255.0f green:199.0f/255.0f blue:205.0f/255.0f alpha:1.0f];
     
     // Setup default values
     _borderColor = [UIColor colorWithRed:213.0f/255.0f green:221.0f/255.0f blue:224.0f/255.0f alpha:1];
     _cornerRadius = 2.0f;
-    _borderWidth = 1;
+    _borderWidth = 1.0f;
     
     // Enable textfield border
     self.layer.cornerRadius = _cornerRadius;
@@ -194,8 +195,8 @@ IB_DESIGNABLE
 - (void)toggleFloatLabelProperties:(UIFloatLabelAnimationType)animationType
 {
     _floatLabel.alpha = (animationType == UIFloatLabelAnimationTypeShow) ? 1.0f : 0.0f;
-    CGFloat yOrigin = (animationType == UIFloatLabelAnimationTypeShow) ? -UI_FLOAT_LABEL_VERTICAL_INSET_OFFSET : 0.0f;
-    _floatLabel.frame = CGRectMake(_xOrigin,
+    CGFloat yOrigin = (animationType == UIFloatLabelAnimationTypeShow) ? -UI_FLOAT_LABEL_VERTICAL_INSET_OFFSET-16.0f : 0.0f;
+    _floatLabel.frame = CGRectMake(_xOrigin-4.0f,
                                    yOrigin,
                                    CGRectGetWidth([_floatLabel frame]),
                                    CGRectGetHeight([_floatLabel frame]));
@@ -265,7 +266,7 @@ IB_DESIGNABLE
 {
     [super setTextColor:textColor];
     if (!_storedTextColor) {
-         _storedTextColor = [self textColor];
+        _storedTextColor = [self textColor];
     }
 }
 
@@ -294,7 +295,7 @@ IB_DESIGNABLE
 {
     [super layoutSubviews];
     [self updateTextAlignment];
-     
+    
     if (![self isFirstResponder] && ![self.text length]) {
         [self toggleFloatLabelProperties:UIFloatLabelAnimationTypeHide];
     }
@@ -304,10 +305,10 @@ IB_DESIGNABLE
 -(BOOL)becomeFirstResponder
 {
     [super becomeFirstResponder];
-
+    
     _floatLabel.textColor = _floatLabelActiveColor;
     _storedText = [self text];
-
+    
     [self updateRectForTextFieldGeneratedViaAutoLayout];
     
     return YES;
@@ -346,7 +347,7 @@ IB_DESIGNABLE
 - (void)setPlaceholder:(NSString *)placeholder
 {
     _placeholder = placeholder;
- 
+    
     _floatLabel.text = _placeholder;
     if (![self.text length]) {
         self.text = _placeholder;
