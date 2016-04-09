@@ -99,7 +99,7 @@ IB_DESIGNABLE
     _horizontalPadding = 10.0f;
     self.contentInset = UIEdgeInsetsMake(UI_FLOAT_LABEL_VERTICAL_INSET_OFFSET,
                                          0.0f,
-                                         0.0f,
+                                         UI_FLOAT_LABEL_VERTICAL_INSET_OFFSET,
                                          0.0f);
     self.textContainerInset = UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f);
     
@@ -196,7 +196,8 @@ IB_DESIGNABLE
 {
     _floatLabel.alpha = (animationType == UIFloatLabelAnimationTypeShow) ? 1.0f : 0.0f;
     CGFloat yOrigin = (animationType == UIFloatLabelAnimationTypeShow) ? -UI_FLOAT_LABEL_VERTICAL_INSET_OFFSET-16.0f : 0.0f;
-    _floatLabel.frame = CGRectMake(_xOrigin-4.0f,
+    _xOrigin = 5.0f;
+    _floatLabel.frame = CGRectMake(_xOrigin,
                                    yOrigin,
                                    CGRectGetWidth([_floatLabel frame]),
                                    CGRectGetHeight([_floatLabel frame]));
